@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  frontend:
+    build:
+      context: ./front
+      args:
+        HOST_API: http://localhost:8080/api/
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+  backend:
+    build: back
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/todo_db?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SETTINGS_CORS_ORIGIN=http://localhost
+    depends_on:
+      - db
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=todo_db
+    restart: always
+    volumes: 
+      - $PWD/data:/var/lib/mysql
