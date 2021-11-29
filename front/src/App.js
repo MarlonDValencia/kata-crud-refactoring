@@ -1,20 +1,22 @@
-import React from 'react';
-import { StoreProvider } from "./store";
-import ListView from "./list/ListView";
-import FormView from "./list/FormView";
+import React from "react";
+import { StoreProvider } from "./Components/Store";
+import TaskForm from "./Components/Task/TaskForm";
+import TaskList from "./Components/Task/TaskList";
+import  '../src/index.css';
 
 function App() {
-  return <StoreProvider>
-    <div className="title">
-      <h3>Dashboard</h3>
+  return (
+    <>
+    <div className= "container">
+      <StoreProvider>
+        <TaskForm />
+        <TaskList />
+      </StoreProvider>
     </div>
-    <div className="container">
-      <div className="content">
-        <FormView />
-        <ListView />
-      </div>
-    </div>
-  </StoreProvider>
+    </>
+  ) 
+
+  
 }
 
 export default App;
